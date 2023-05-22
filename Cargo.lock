@@ -3,14 +3,7 @@
 version = 3
 
 [[package]]
-name = "macroz"
-version = "0.1.0"
-dependencies = [
- "macroz_derive",
-]
-
-[[package]]
-name = "macroz_derive"
+name = "cache-monet"
 version = "0.1.0"
 dependencies = [
  "quote",
