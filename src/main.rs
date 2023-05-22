@@ -1,20 +1,29 @@
-use macroz_derive::{TypeName, prepend_task};
-use macroz::TypeName;
+use cache_monet::cached;
 
-#[derive(TypeName)]
-struct Pancakes;
+use std::env;
 
-#[derive(TypeName)]
-struct Waffles;
-
-#[prepend_task]
-fn invoke() {
-    println!("This prints after")
+#[cached]
+fn fib(n: u128) -> u128 {
+    if n <= 1 { n } 
+    else { fib(n - 1) + fib(n - 2) }
 }
 
 fn main() {
-    Pancakes::print_typename();
-    Waffles::print_typename();
-    invoke();
-    println!("Done.")
+    let n;
+
+    let mut args = env::args();
+
+    if args.len() != 2 {
+        eprintln!("usage: fib <number>");
+        std::process::exit(1);
+    } else {
+        n = args.nth(1)
+            .unwrap()
+            .parse::<u128>()
+            .expect("Could not parse input as integer");
+    }
+
+    let answer = fib(n);
+
+    println!("{answer}")
 }
